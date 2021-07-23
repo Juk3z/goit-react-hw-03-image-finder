@@ -14,7 +14,7 @@ class Button extends Component {
 
   componentDidMount() {
     const { totalElements } = this.props;
-    if (totalElements > 9) {
+    if (totalElements > 10) {
       window.scrollTo({
         top: document.documentElement.scrollHeight,
         behavior: "smooth",

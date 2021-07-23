@@ -4,17 +4,22 @@ import PropTypes from "prop-types";
 class Button extends Component {
   static defaultProps = {
     text: "Just Button",
+    totalElements: 1,
   };
 
   static propTypes = {
     onClick: PropTypes.func.isRequired,
+    totalElements: PropTypes.number,
   };
 
   componentDidMount() {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "smooth",
-    });
+    const { totalElements } = this.props;
+    if (totalElements > 9) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
   }
 
   render() {

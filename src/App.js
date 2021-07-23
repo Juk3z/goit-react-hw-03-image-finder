@@ -80,7 +80,11 @@ class App extends Component {
 
         {loader && <Loader />}
         {images.length > 0 && !loader && (
-          <Button onClick={this.getItemsForGallery} text={"load more"} />
+          <Button
+            onClick={this.getItemsForGallery}
+            text={"load more"}
+            totalElements={images.length}
+          />
         )}
         {this.state.modalShow && (
           <Modal url={modalImageURL} modalToggle={this.toggleModal} />

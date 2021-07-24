@@ -17,6 +17,7 @@ class App extends Component {
     images: [],
     modalImageURL: "",
     loader: false,
+    error: "",
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -47,26 +48,27 @@ class App extends Component {
     this.setState({ loader: true });
 
     const { searchQuery, pageNumber } = this.state;
-    const newImages = await fetchImages(searchQuery, pageNumber)
-      .then((responce) => responce)
-      .catch((error) => error);
+    try {
+      const newImages = await fetchImages(searchQuery, pageNumber);
+      this.setState(({ images, pageNumber }) => {
+        return {
+          images: [...images, ...newImages],
+          pageNumber: pageNumber + 1,
+        };
+      });
+    } catch (error) {
+      this.setState({ error: error });
+    }
 
-    this.setState(({ images, pageNumber }) => {
-      return { images: [...images, ...newImages], pageNumber: pageNumber + 1 };
-    });
-
-    // отключение лодера не стал делать через finally, для лучшей читабельности.
-    // в противном случае, придется выносить обновление массива в .then - так читается   трудно.
     this.setState({ loader: false });
   };
 
   render() {
-    const { images, modalImageURL, loader } = this.state;
+    const { images, modalImageURL, loader, error } = this.state;
 
     return (
       <>
         <Searchbar onSubmit={this.getSearchQuery} />
-
         <ImageGallery>
           {images.map((item) => (
             <ImageGalleryItem
@@ -78,6 +80,7 @@ class App extends Component {
           ))}
         </ImageGallery>
 
+        {error && <p>oops... something went wrong</p>}
         {loader && <Loader />}
         {images.length > 0 && !loader && (
           <Button

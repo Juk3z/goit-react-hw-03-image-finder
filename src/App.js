@@ -41,7 +41,7 @@ class App extends Component {
     if (query === this.state.searchQuery) {
       return;
     }
-    this.setState({ searchQuery: query, images: [], pageNumber: 1 });
+    this.setState({ searchQuery: query, images: [], pageNumber: 1, error: "" });
   };
 
   getItemsForGallery = async () => {

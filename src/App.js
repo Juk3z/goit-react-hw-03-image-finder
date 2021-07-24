@@ -55,6 +55,10 @@ class App extends Component {
     const { searchQuery, pageNumber } = this.state;
     try {
       const newImages = await fetchImages(searchQuery, pageNumber);
+      if (newImages.length === 0) {
+        this.setState({ error: "empty responce" });
+      }
+
       this.setState(({ images, pageNumber }) => {
         return {
           images: [...images, ...newImages],
@@ -85,7 +89,9 @@ class App extends Component {
           ))}
         </ImageGallery>
 
-        {error && <p>oops... something went wrong, try again later</p>}
+        {error && (
+          <p>oops... something went wrong, try again later or change query</p>
+        )}
         {loader && <Loader />}
         {images.length > 0 && !loader && (
           <Button

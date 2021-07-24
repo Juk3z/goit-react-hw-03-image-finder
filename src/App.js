@@ -41,7 +41,12 @@ class App extends Component {
     if (query === this.state.searchQuery) {
       return;
     }
-    this.setState({ searchQuery: query, images: [], pageNumber: 1, error: "" });
+    this.setState({
+      searchQuery: query,
+      images: [],
+      pageNumber: 1,
+      error: "",
+    });
   };
 
   getItemsForGallery = async () => {
@@ -80,7 +85,7 @@ class App extends Component {
           ))}
         </ImageGallery>
 
-        {error && <p>oops... something went wrong</p>}
+        {error && <p>oops... something went wrong, try again later</p>}
         {loader && <Loader />}
         {images.length > 0 && !loader && (
           <Button

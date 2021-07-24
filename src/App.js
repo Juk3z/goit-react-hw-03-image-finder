@@ -46,6 +46,7 @@ class App extends Component {
       images: [],
       pageNumber: 1,
       error: "",
+      test: "",
     });
   };
 

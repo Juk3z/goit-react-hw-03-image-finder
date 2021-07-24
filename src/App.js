@@ -92,7 +92,9 @@ class App extends Component {
         {error && (
           <p>oops... something went wrong, try again later or change query</p>
         )}
+
         {loader && <Loader />}
+
         {images.length > 0 && !loader && (
           <Button
             onClick={this.getItemsForGallery}
@@ -100,6 +102,7 @@ class App extends Component {
             totalElements={images.length}
           />
         )}
+
         {this.state.modalShow && (
           <Modal url={modalImageURL} modalToggle={this.toggleModal} />
         )}
